@@ -1,30 +1,42 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi')
+const inert = require('@hapi/inert')
+const path = require('path')
 
 const server = Hapi.server({
   port: process.env.PORT || 3000,
-  host: process.env.HOST || 'localhost'
+  host: process.env.HOST || 'localhost',
+  routes: {
+    files: {
+      relativeTo: path.join(__dirname, 'public')
+    }
+  }
 })
 
 async function init () {
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: (req, h) => {
-      return h.response('Hola Mundo!').code(200)
-    }
-  })
-
-  server.route({
-    method: 'GET',
-    path: '/redirect',
-    handler: (req, h) => {
-      return h.redirect('http://platzi.com')
-    }
-  })
-
   try {
+    await server.register(inert)
+
+    server.route({
+      method: 'GET',
+      path: '/home',
+      handler: (req, h) => {
+        return h.file('index.html')
+      }
+    })
+
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: '.',
+          index: ['index.html']
+        }
+      }
+    })
+
     await server.start()
   } catch (error) {
     console.log(error)

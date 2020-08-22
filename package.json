@@ -7,7 +7,12 @@
     "dev": "nodemon",
     "lint": "standard",
     "lint-fix": "standard --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   },
   "repository": {
     "type": "git",
@@ -24,10 +29,12 @@
   },
   "homepage": "https://github.com/resparzasoto/curso-nodejs-hapi#readme",
   "devDependencies": {
+    "husky": "^4.2.5",
     "nodemon": "^2.0.4",
     "standard": "^14.3.4"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.0.0"
+    "@hapi/hapi": "^20.0.0",
+    "@hapi/inert": "^6.0.2"
   }
 }
