@@ -12,7 +12,15 @@ async function init () {
     method: 'GET',
     path: '/',
     handler: (req, h) => {
-      return 'Hola Mundo!'
+      return h.response('Hola Mundo!').code(200)
+    }
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/redirect',
+    handler: (req, h) => {
+      return h.redirect('http://platzi.com')
     }
   })
 
