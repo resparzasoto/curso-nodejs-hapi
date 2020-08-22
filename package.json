@@ -1,0 +1,33 @@
+{
+  "name": "curso-nodejs-hapi",
+  "version": "1.0.0",
+  "description": "Un sitio como StackOverflow",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resparzasoto/curso-nodejs-hapi.git"
+  },
+  "keywords": [
+    "nodejs",
+    "hapi"
+  ],
+  "author": "@resparzasoto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/resparzasoto/curso-nodejs-hapi/issues"
+  },
+  "homepage": "https://github.com/resparzasoto/curso-nodejs-hapi#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.0.0"
+  }
+}
