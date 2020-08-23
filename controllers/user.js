@@ -12,6 +12,22 @@ async function createUser (req, h) {
   }
 }
 
+async function validateUser (req, h) {
+  try {
+    const result = await users.validateUser(req.payload)
+
+    if (result) {
+      return h.response(result).code(200)
+    } else {
+      return h.response('Credenciales incorrectas').code(400)
+    }
+  } catch (error) {
+    console.error(error)
+    return h.response('Problemas validando el usuario').code(500)
+  }
+}
+
 module.exports = {
-  createUser
+  createUser,
+  validateUser
 }

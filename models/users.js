@@ -22,6 +22,20 @@ class Users {
     return newUser.key
   }
 
+  async validateUser (data) {
+    let result = false
+    const userQuery = await this.collection.orderByChild('email').equalTo(data.email).once('value')
+    const userFound = userQuery.val()
+
+    if (userFound) {
+      const userId = Object.keys(userFound)[0]
+      const passwordRight = await bcrypt.compare(data.password, userFound[userId].password)
+      result = (passwordRight) ? userFound[userId] : false
+    }
+
+    return result
+  }
+
   static async encrypt (password) {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
     return hashedPassword
