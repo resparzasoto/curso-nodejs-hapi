@@ -1,3 +1,6 @@
+# Secrets
+config/firebase-secrets.json
+
 # Logs
 logs
 *.log
