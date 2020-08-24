@@ -7,10 +7,24 @@ const { users } = require('../models/index')
 async function createUser (req, h) {
   try {
     const resultId = await users.create(req.payload)
-    return h.response(`Usuario creado correctamente con el Id: ${resultId}`).code(201)
+
+    if (resultId) {
+      return h.view('register', {
+        title: 'Registro',
+        success: 'Usuario creado exitosamente'
+      })
+    } else {
+      return h.view('register', {
+        title: 'Registro',
+        error: 'Problemas creando el usuario'
+      })
+    }
   } catch (error) {
     console.error(error)
-    return h.response('Problemas creando el usuario').code(500)
+    return h.view('register', {
+      title: 'Registro',
+      error: 'Problemas creando el usuario'
+    })
   }
 }
 
@@ -23,7 +37,10 @@ async function validateUser (req, h) {
     const result = await users.validateUser(req.payload)
 
     if (result === false) {
-      return h.response('Credenciales incorrectas').code(401)
+      return h.view('login', {
+        title: 'Iniciar sesión',
+        error: 'Credenciales incorrectas'
+      })
     } else {
       return h.redirect('/').state('user', {
         name: result.name,
@@ -32,7 +49,11 @@ async function validateUser (req, h) {
     }
   } catch (error) {
     console.error(error)
-    return h.response('Problemas validando el usuario').code(500)
+
+    return h.view('login', {
+      title: 'Iniciar sesión',
+      error: 'Problemas validando el usuario'
+    })
   }
 }
 
