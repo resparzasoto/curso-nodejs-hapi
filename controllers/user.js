@@ -1,7 +1,5 @@
 'use strict'
 
-const Boom = require('@hapi/boom')
-
 const { users } = require('../models/index')
 
 async function createUser (req, h) {
@@ -58,7 +56,15 @@ async function validateUser (req, h) {
 }
 
 function failValidation (req, h, err) {
-  return Boom.badRequest('Falló la validación', req.payload)
+  const templates = {
+    '/create-user': 'register',
+    '/validate-user': 'login'
+  }
+
+  return h.view(templates[req.path], {
+    title: 'Error de validación',
+    error: 'Por favor complete los campos requeridos'
+  }).code(400).takeover()
 }
 
 module.exports = {
