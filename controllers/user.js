@@ -16,10 +16,13 @@ async function validateUser (req, h) {
   try {
     const result = await users.validateUser(req.payload)
 
-    if (result) {
-      return h.response(result).code(200)
+    if (result === false) {
+      return h.response('Credenciales incorrectas').code(401)
     } else {
-      return h.response('Credenciales incorrectas').code(400)
+      return h.redirect('/').state('user', {
+        name: result.name,
+        email: result.email
+      })
     }
   } catch (error) {
     console.error(error)
@@ -27,7 +30,12 @@ async function validateUser (req, h) {
   }
 }
 
+async function logout (req, h) {
+  return h.redirect('/login').unstate('user')
+}
+
 module.exports = {
   createUser,
-  validateUser
+  validateUser,
+  logout
 }
