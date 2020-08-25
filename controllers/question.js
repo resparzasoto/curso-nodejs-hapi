@@ -16,7 +16,7 @@ async function createQuestion (req, h) {
     }).code(500).takeover()
   }
 
-  return h.response(`Pregunta creada con el Id ${result}`)
+  return h.redirect('/')
 }
 
 module.exports = {

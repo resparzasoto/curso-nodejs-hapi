@@ -8,14 +8,21 @@ class Questions {
   }
 
   async create (data, user) {
-    data = {
+    const ask = {
       ...data,
       owner: user
     }
 
-    const question = this.collection.push(data)
+    const question = this.collection.push(ask)
 
     return question.key
+  }
+
+  async getLast (amount, user) {
+    const query = await this.collection.limitToLast(amount).once('value')
+    const data = query.val()
+
+    return data
   }
 }
 
