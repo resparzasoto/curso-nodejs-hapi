@@ -3,21 +3,12 @@
 const Hapi = require('@hapi/hapi')
 const inert = require('@hapi/inert')
 const vision = require('@hapi/vision')
-const handlerbars = require('handlebars')
+const handlerbars = require('./lib/helpers')
 const path = require('path')
 
 const routes = require('./routes')
 const config = require('./config/index')
 const site = require('./controllers/site')
-
-handlerbars.registerHelper('answerNumber', answers => {
-  if (!answers) {
-    return 0
-  }
-
-  const keys = Object.keys(answers)
-  return keys.length
-})
 
 const server = Hapi.server({
   port: config.node.port,

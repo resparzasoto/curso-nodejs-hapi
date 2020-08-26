@@ -14,26 +14,15 @@
                         Creada por <strong>{{answer.user.name}}</strong>
                     </div>
                     <div class="col-sm text-right">
-
+                        {{#with user}}
+                            {{#ifEquals ../../question.owner.email ../../user.email}}
+                                <a href="" class="btn btn-primary" role="button">Elegir como respuesta correcta</a>
+                            {{/ifEquals}}
+                        {{/with}}
                     </div>
                 </div>
             </div>
         </div>
-        {{!-- <div class="alert alert-success" role="alert">
-            <p>Esta es una repuesta de ejemplo marcada como correcta</p>
-            <hr>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        Creada por <strong>Adrian Estrada</strong>
-                    </div>
-                    <div class="col-sm text-right">
-
-                        <h3><span class="badge badge-success">Respuesta correcta</span></h3>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     {{/each}}
     {{#if user}}
         <div class="card mb-3">
