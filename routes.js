@@ -91,6 +91,11 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/answer/{questionId}/{answerId}',
+    handler: question.setAnswerRight
+  },
+  {
+    method: 'GET',
     path: '/question/{id}',
     handler: site.viewQuestion
   },
