@@ -34,6 +34,7 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
+    "@hapi/basic": "^6.0.0",
     "@hapi/boom": "^9.1.0",
     "@hapi/good": "^9.0.0",
     "@hapi/good-console": "^9.0.0",
