@@ -5,6 +5,7 @@ const inert = require('@hapi/inert')
 const vision = require('@hapi/vision')
 const good = require('@hapi/good')
 const goodConsole = require('@hapi/good-console')
+const crumb = require('@hapi/crumb')
 
 const path = require('path')
 
@@ -46,6 +47,14 @@ async function init () {
       plugin: require('./lib/api'),
       options: {
         prefix: 'api'
+      }
+    })
+    await server.register({
+      plugin: crumb,
+      options: {
+        cookieOptions: {
+          isSecure: config.node.environment === 'production'
+        }
       }
     })
 
