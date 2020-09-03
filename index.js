@@ -6,8 +6,10 @@ const vision = require('@hapi/vision')
 const good = require('@hapi/good')
 const goodConsole = require('@hapi/good-console')
 const crumb = require('@hapi/crumb')
+const scooter = require('@hapi/scooter')
 
 const path = require('path')
+const blankie = require('blankie')
 
 const handlerbars = require('./lib/helpers')
 const methods = require('./lib/methods')
@@ -57,6 +59,16 @@ async function init () {
         }
       }
     })
+    await server.register([scooter, {
+      plugin: blankie,
+      options: {
+        defaultSrc: '\'self\' \'unsafe-inline\'',
+        styleSrc: '\'self\' \'unsafe-inline\' https://maxcdn.bootstrapcdn.com',
+        fontSrc: '\'self\' \'unsafe-inline\' data:',
+        scriptSrc: '\'self\' \'unsafe-inline\' https://cdnjs.cloudflare.com https://maxcdn.bootstrapcdn.com/ https://code.jquery.com/',
+        generateNonces: false
+      }
+    }])
 
     server.method('setAnswerRight', methods.setAnswerRight)
     server.method('getLast', methods.getLast, {
