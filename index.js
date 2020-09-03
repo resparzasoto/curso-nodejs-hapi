@@ -7,6 +7,7 @@ const good = require('@hapi/good')
 const goodConsole = require('@hapi/good-console')
 const crumb = require('@hapi/crumb')
 const scooter = require('@hapi/scooter')
+const hapiDevErrors = require('hapi-dev-errors')
 
 const path = require('path')
 const blankie = require('blankie')
@@ -69,6 +70,12 @@ async function init () {
         generateNonces: false
       }
     }])
+    await server.register({
+      plugin: hapiDevErrors,
+      options: {
+        showErrors: config.node.environment !== 'production'
+      }
+    })
 
     server.method('setAnswerRight', methods.setAnswerRight)
     server.method('getLast', methods.getLast, {
